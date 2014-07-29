@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Router That Works Example Page</title>
+</head>
+<body>
+  <a href="#/page/one">Page 1</a>
+  <a href="#/page/two">Page 2</a>
+  <a href="#/page/three">Page 3</a>
+  <a href="#/page/10">Page Ten</a>
+  <hr>
+  <div id="page-1" class="page" style="display:none">Page 1</div>
+  <div id="page-2" class="page" style="display:none">Page 2</div>
+  <div id="page-3" class="page" style="display:none">Page 3</div>
+  <div id="page-n" class="page" style="display:none">Page <span id="page-no"></span></div>
+
+  <script type="text/javascript" src="routerthatworks.js"></script>
+  <script type="text/javascript">
+  function hideAllPages() {
+    for (var i = 0; i < document.querySelector(".page").length; i++) {
+      document.querySelector(".page")[i].style.display = "none";
+    };
+  }
+  function showPageOne(args, query_params) {
+    hideAllPages();
+    document.getElementById("page-1").style.display = 'block';
+  };
+  function showPageTwo(args, query_params) {
+    hideAllPages();
+    document.getElementById("page-2").style.display = 'block';
+  };
+  function showPageThree(args, query_params) {
+    hideAllPages();
+    document.getElementById("page-3").style.display = 'block';
+  };
+  function showPageAnyNumber(args, query_params) {
+    hideAllPages();
+    document.getElementById("page-n").style.display = 'block';
+
+    document.getElementById("page-no").innerHTML = args[1];
+  };
+
+  var router = new RouterThatWorks({
+    '/page/one': showPageOne,
+    '/page/two': showPageTwo,
+    '/page/three': showPageThree,
+    '/page/(\\d+)': showPageAnyNumber,
+  })
+  router.init();
+  </script>
+</body>
+</html>
