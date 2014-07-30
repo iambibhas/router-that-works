@@ -2,7 +2,11 @@ var RouterThatWorks = function(routes) {
     this.routes = routes || {};
 
     this.hashChanged = function() {
-        var hash = window.location.hash.substr(1, window.location.hash.length-1);
+        var hash = window.location.hash;
+        if (window.location.hash.startsWith("#")) {
+            hash = hash.substr(1, hash.length-1);
+        }
+
         var query_params = {};
         var hash_split = hash.split("?");
 
